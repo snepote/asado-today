@@ -37,7 +37,7 @@
 <div class="flex flex-col gap-3">
 	<div class="flex items-center justify-between">
 		<p class="text-sm font-medium text-muted">
-			{yesCount} confirmados · {totalCount} total
+			{yesCount} confirmed · {totalCount} total
 		</p>
 	</div>
 
@@ -56,12 +56,12 @@
 				</div>
 				<span class="text-sm text-muted">
 					{guest.rsvp === 'YES'
-						? 'Va'
+						? 'In'
 						: guest.rsvp === 'MAYBE'
-							? 'Vemos'
+							? 'Maybe'
 							: guest.rsvp === 'NO'
-								? 'No va'
-								: 'Pendiente'}
+								? 'Out'
+								: 'Pending'}
 				</span>
 			</div>
 		{/each}

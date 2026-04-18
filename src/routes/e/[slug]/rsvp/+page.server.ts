@@ -8,10 +8,10 @@ const VALID_RSVPS = new Set<string>(["YES", "MAYBE", "NO"]);
 
 export const load: PageServerLoad = async ({ params, platform }) => {
 	const db = platform?.env?.DB;
-	if (!db) error(500, "Servicio no disponible");
+	if (!db) error(500, "Service unavailable");
 
 	const event = await getEventById(db, params.slug);
-	if (!event) error(404, "Asado no encontrado");
+	if (!event) error(404, "Asado not found");
 
 	return {
 		event: {
@@ -29,7 +29,7 @@ export const load: PageServerLoad = async ({ params, platform }) => {
 export const actions = {
 	default: async ({ request, params, platform, cookies }) => {
 		const db = platform?.env?.DB;
-		if (!db) return fail(500, { error: "Servicio no disponible" });
+		if (!db) return fail(500, { error: "Service unavailable" });
 
 		const data = await request.formData();
 		const name = data.get("name")?.toString()?.trim();
@@ -38,11 +38,11 @@ export const actions = {
 		const plusOnes = Number.parseInt(plusOnesStr, 10) || 0;
 
 		if (!name) {
-			return fail(400, { error: "Decinos tu nombre" });
+			return fail(400, { error: "Name is required" });
 		}
 
 		if (!rsvp || !VALID_RSVPS.has(rsvp)) {
-			return fail(400, { error: "Respuesta inválida" });
+			return fail(400, { error: "Invalid response" });
 		}
 
 		const guestToken = cookies.get(`guest_${params.slug}`);

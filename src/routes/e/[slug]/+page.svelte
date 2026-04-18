@@ -5,8 +5,8 @@
 	let { data } = $props();
 
 	const verdictLabels: Record<Verdict, string> = {
-		SI: 'SÍ',
-		MAYBE: 'MMMMM',
+		SI: 'YES',
+		MAYBE: 'MAYBE',
 		NO: 'NO'
 	};
 
@@ -25,7 +25,7 @@
 
 	function formatDate(dateStr: string): string {
 		const d = new Date(dateStr + 'T00:00:00');
-		return d.toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' });
+		return d.toLocaleDateString('en-GB', { weekday: 'long', month: 'short', day: 'numeric' });
 	}
 
 	const totalGuests = $derived(
@@ -34,13 +34,13 @@
 </script>
 
 <svelte:head>
-	<title>Asado de {data.event.hostName} — {verdictLabels[data.event.verdict]}</title>
+	<title>{data.event.hostName}'s Asado — {verdictLabels[data.event.verdict]}</title>
 </svelte:head>
 
 <div class="flex min-h-screen flex-col items-center px-4 py-8">
 	<div class="w-full max-w-md">
 		<p class="text-center text-sm uppercase tracking-wide text-muted">
-			Asado de {data.event.hostName}
+			{data.event.hostName}'s Asado
 		</p>
 
 		<p class="mt-6 text-center text-8xl font-black tracking-tighter {verdictColors[data.event.verdict]} sm:text-9xl">
@@ -54,7 +54,7 @@
 		{/if}
 
 		<div class="mt-8 flex flex-col items-center gap-1 text-center">
-			<p class="text-lg font-medium">{formatDate(data.event.date)} a las {data.event.time}</p>
+			<p class="text-lg font-medium">{formatDate(data.event.date)} at {data.event.time}</p>
 			{#if data.event.locationLabel}
 				<p class="text-muted">{data.event.locationLabel}</p>
 			{/if}
@@ -63,7 +63,7 @@
 		{#if data.guests.length > 0}
 			<div class="mt-8">
 				<p class="text-sm font-medium text-muted">
-					{totalGuests} {totalGuests === 1 ? 'persona' : 'personas'}
+					{totalGuests} {totalGuests === 1 ? 'guest' : 'guests'}
 				</p>
 				<div class="mt-2 flex flex-col gap-2">
 					{#each data.guests as guest (guest.id)}
@@ -90,7 +90,7 @@
 					href="/e/{data.event.id}/rsvp"
 					class="inline-flex w-full items-center justify-center rounded-xl bg-verdict-si px-6 py-4 text-lg font-bold text-white transition-transform active:scale-95"
 				>
-					Responder
+					RSVP
 				</a>
 			</div>
 		{/if}
@@ -100,7 +100,7 @@
 				href="/e/{data.event.id}/live"
 				class="inline-flex w-full items-center justify-center rounded-xl border border-black/10 px-6 py-3 text-sm font-medium transition-colors hover:bg-black/5 dark:border-white/10 dark:hover:bg-white/5"
 			>
-				Ver en vivo
+				Live forecast
 			</a>
 		</div>
 	</div>

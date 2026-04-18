@@ -13,21 +13,21 @@ export const actions = {
 		const locationLabel = data.get("location_label")?.toString() || null;
 
 		if (!hostName || !date || !time || !lat || !lng) {
-			return fail(400, { error: "Completá todos los campos" });
+			return fail(400, { error: "All fields are required" });
 		}
 
 		const latNum = Number.parseFloat(lat);
 		const lngNum = Number.parseFloat(lng);
 
 		if (Number.isNaN(latNum) || Number.isNaN(lngNum)) {
-			return fail(400, { error: "Ubicación inválida" });
+			return fail(400, { error: "Invalid location" });
 		}
 
 		const db = platform?.env?.DB;
 		const kv = platform?.env?.KV;
 
 		if (!db || !kv) {
-			return fail(500, { error: "Servicio no disponible" });
+			return fail(500, { error: "Service unavailable" });
 		}
 
 		const { id, hostToken } = await createEvent(

@@ -9,9 +9,9 @@
 	let { direction, delta }: Props = $props();
 
 	const labels: Record<TrendDirection, string> = {
-		improving: 'Mejorando',
-		worsening: 'Empeorando',
-		steady: 'Estable'
+		improving: 'Improving',
+		worsening: 'Worsening',
+		steady: 'Steady'
 	};
 
 	const colors: Record<TrendDirection, string> = {

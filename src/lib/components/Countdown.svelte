@@ -26,18 +26,18 @@
 </script>
 
 {#if isOver}
-	<p class="text-lg font-medium text-muted">El asado ya empezó</p>
+	<p class="text-lg font-medium text-muted">Asado has started</p>
 {:else}
 	<div class="flex items-center gap-4 text-center">
 		{#if days > 0}
 			<div>
 				<p class="text-3xl font-bold">{days}</p>
-				<p class="text-xs text-muted">días</p>
+				<p class="text-xs text-muted">days</p>
 			</div>
 		{/if}
 		<div>
 			<p class="text-3xl font-bold">{String(hours).padStart(2, '0')}</p>
-			<p class="text-xs text-muted">horas</p>
+			<p class="text-xs text-muted">hrs</p>
 		</div>
 		<div>
 			<p class="text-3xl font-bold">{String(minutes).padStart(2, '0')}</p>
@@ -45,7 +45,7 @@
 		</div>
 		<div>
 			<p class="text-3xl font-bold">{String(seconds).padStart(2, '0')}</p>
-			<p class="text-xs text-muted">seg</p>
+			<p class="text-xs text-muted">sec</p>
 		</div>
 	</div>
 {/if}

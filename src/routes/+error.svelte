@@ -7,12 +7,12 @@
 		{$page.status}
 	</p>
 	<p class="mt-4 text-lg text-muted">
-		{$page.error?.message || 'Algo salió mal'}
+		{$page.error?.message || 'Something went wrong'}
 	</p>
 	<a
 		href="/"
 		class="mt-8 rounded-xl bg-verdict-si px-6 py-3 font-bold text-white transition-transform active:scale-95"
 	>
-		Volver al inicio
+		Back home
 	</a>
 </div>

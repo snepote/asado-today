@@ -5,10 +5,10 @@ import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ params, platform, cookies }) => {
 	const db = platform?.env?.DB;
-	if (!db) error(500, "Servicio no disponible");
+	if (!db) error(500, "Service unavailable");
 
 	const event = await getEventById(db, params.slug);
-	if (!event) error(404, "Asado no encontrado");
+	if (!event) error(404, "Asado not found");
 
 	const [guests, snapshots] = await Promise.all([
 		getGuestsByEventId(db, params.slug),

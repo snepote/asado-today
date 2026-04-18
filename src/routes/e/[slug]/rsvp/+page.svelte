@@ -6,8 +6,8 @@
 	let { data, form }: { data: PageServerData; form: ActionData } = $props();
 
 	const verdictLabels: Record<Verdict, string> = {
-		SI: 'SÍ',
-		MAYBE: 'MMMMM',
+		SI: 'YES',
+		MAYBE: 'MAYBE',
 		NO: 'NO'
 	};
 
@@ -58,18 +58,18 @@
 
 	function formatDate(dateStr: string): string {
 		const d = new Date(dateStr + 'T00:00:00');
-		return d.toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' });
+		return d.toLocaleDateString('en-GB', { weekday: 'long', month: 'short', day: 'numeric' });
 	}
 </script>
 
 <svelte:head>
-	<title>RSVP — Asado de {data.event.hostName}</title>
+	<title>RSVP — {data.event.hostName}'s Asado</title>
 </svelte:head>
 
 <div class="flex min-h-screen flex-col items-center px-4 py-8">
 	<div class="w-full max-w-md">
 		<p class="text-center text-sm uppercase tracking-wide text-muted">
-			Asado de {data.event.hostName}
+			{data.event.hostName}'s Asado
 		</p>
 
 		<p class="mt-4 text-center text-6xl font-black tracking-tighter {verdictColors[data.event.verdict]} sm:text-7xl">
@@ -77,7 +77,7 @@
 		</p>
 
 		<p class="mt-2 text-center text-muted">
-			{formatDate(data.event.date)} a las {data.event.time}
+			{formatDate(data.event.date)} at {data.event.time}
 			{#if data.event.locationLabel}
 				· {data.event.locationLabel}
 			{/if}
@@ -85,7 +85,7 @@
 
 		{#if guestVerdict}
 			<div class="mt-6 rounded-xl border border-black/10 p-4 dark:border-white/10">
-				<p class="text-sm text-muted">Tu pronóstico</p>
+				<p class="text-sm text-muted">Your forecast</p>
 				<p class="text-3xl font-bold {verdictColors[guestVerdict.verdict]}">
 					{verdictLabels[guestVerdict.verdict]} <span class="text-lg font-normal text-muted">{guestVerdict.score}/100</span>
 				</p>
@@ -97,7 +97,7 @@
 				disabled={loadingVerdict}
 				class="mt-6 w-full rounded-lg border border-black/10 px-4 py-3 text-sm transition-colors hover:bg-black/5 disabled:opacity-50 dark:border-white/10 dark:hover:bg-white/5"
 			>
-				{loadingVerdict ? 'Consultando...' : 'Ver mi pronóstico'}
+				{loadingVerdict ? 'Loading...' : 'Check my forecast'}
 			</button>
 		{/if}
 
@@ -113,7 +113,7 @@
 			class="mt-8 flex flex-col gap-4"
 		>
 			<label class="flex flex-col gap-1">
-				<span class="text-sm font-medium">Tu nombre</span>
+				<span class="text-sm font-medium">Name</span>
 				<input
 					type="text"
 					name="name"
@@ -124,11 +124,11 @@
 			</label>
 
 			<div>
-				<span class="text-sm font-medium">Vas?</span>
+				<span class="text-sm font-medium">Going?</span>
 				<div class="mt-2 grid grid-cols-3 gap-2">
 					{#each [
-						{ value: 'YES', label: 'SÍ', color: 'bg-verdict-si' },
-						{ value: 'MAYBE', label: 'Vemos', color: 'bg-verdict-maybe' },
+						{ value: 'YES', label: 'Yes', color: 'bg-verdict-si' },
+						{ value: 'MAYBE', label: 'Maybe', color: 'bg-verdict-maybe' },
 						{ value: 'NO', label: 'No', color: 'bg-verdict-no' }
 					] as option (option.value)}
 						<button
@@ -148,7 +148,7 @@
 
 			{#if selectedRsvp === 'YES'}
 				<label class="flex items-center justify-between gap-2">
-					<span class="text-sm font-medium">Vienen más?</span>
+					<span class="text-sm font-medium">Bringing others?</span>
 					<div class="flex items-center gap-3">
 						<button
 							type="button"
@@ -180,7 +180,7 @@
 				disabled={!selectedRsvp || submitting}
 				class="mt-2 rounded-xl bg-verdict-si px-6 py-4 text-lg font-bold text-white transition-transform active:scale-95 disabled:opacity-50"
 			>
-				{submitting ? 'Enviando...' : 'Confirmar'}
+				{submitting ? 'Sending...' : 'Confirm'}
 			</button>
 		</form>
 	</div>

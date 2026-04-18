@@ -8,8 +8,8 @@
 	let { result }: Props = $props();
 
 	const verdictLabels: Record<Verdict, string> = {
-		SI: 'SÍ',
-		MAYBE: 'MMMMM',
+		SI: 'YES',
+		MAYBE: 'MAYBE',
 		NO: 'NO'
 	};
 
@@ -29,27 +29,27 @@
 	</p>
 	<div class="mt-4 grid w-full max-w-sm grid-cols-2 gap-2 text-sm">
 		<div class="flex justify-between rounded-lg bg-black/5 px-3 py-2 dark:bg-white/5">
-			<span>Lluvia</span>
+			<span>Rain</span>
 			<span class="font-medium">{result.breakdown.precipitation}</span>
 		</div>
 		<div class="flex justify-between rounded-lg bg-black/5 px-3 py-2 dark:bg-white/5">
-			<span>Temperatura</span>
+			<span>Temp</span>
 			<span class="font-medium">{result.breakdown.temperature}</span>
 		</div>
 		<div class="flex justify-between rounded-lg bg-black/5 px-3 py-2 dark:bg-white/5">
-			<span>Viento</span>
+			<span>Wind</span>
 			<span class="font-medium">{result.breakdown.wind}</span>
 		</div>
 		<div class="flex justify-between rounded-lg bg-black/5 px-3 py-2 dark:bg-white/5">
-			<span>Humedad</span>
+			<span>Humidity</span>
 			<span class="font-medium">{result.breakdown.humidity}</span>
 		</div>
 		<div class="flex justify-between rounded-lg bg-black/5 px-3 py-2 dark:bg-white/5">
-			<span>Nubes</span>
+			<span>Clouds</span>
 			<span class="font-medium">{result.breakdown.cloudCover}</span>
 		</div>
 		<div class="flex justify-between rounded-lg bg-black/5 px-3 py-2 dark:bg-white/5">
-			<span>Sol</span>
+			<span>Sun</span>
 			<span class="font-medium">{result.breakdown.goldenHour}</span>
 		</div>
 	</div>

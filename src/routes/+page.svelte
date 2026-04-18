@@ -26,7 +26,7 @@
 		locationError = '';
 
 		if (!navigator.geolocation) {
-			locationError = 'Tu navegador no soporta geolocalización';
+			locationError = 'Geolocation not supported';
 			locating = false;
 			return;
 		}
@@ -37,10 +37,7 @@
 				lng = position.coords.longitude.toFixed(6);
 
 				try {
-					const res = await fetch(
-						`https://geocoding-api.open-meteo.com/v1/search?name=&latitude=${lat}&longitude=${lng}&count=1&language=es`
-					);
-					const geocodeUrl = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=es`;
+					const geocodeUrl = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=en`;
 					const geocodeRes = await fetch(geocodeUrl);
 					if (geocodeRes.ok) {
 						const data = (await geocodeRes.json()) as {
@@ -60,8 +57,8 @@
 
 				locating = false;
 			},
-			(error) => {
-				locationError = 'No pudimos obtener tu ubicación';
+			() => {
+				locationError = 'Could not get your location';
 				locating = false;
 			},
 			{ enableHighAccuracy: false, timeout: 10000 }
@@ -70,8 +67,8 @@
 </script>
 
 <div class="flex min-h-screen flex-col items-center justify-center px-4 py-8">
-	<h1 class="text-5xl font-bold tracking-tight sm:text-7xl">Asado hoy?</h1>
-	<p class="mt-2 text-lg text-muted">Vamos a averiguarlo.</p>
+	<h1 class="text-5xl font-bold tracking-tight sm:text-7xl">Asado today?</h1>
+	<p class="mt-2 text-lg text-muted">Let's find out.</p>
 
 	<form
 		method="POST"
@@ -85,19 +82,19 @@
 		class="mt-8 flex w-full max-w-sm flex-col gap-4"
 	>
 		<label class="flex flex-col gap-1">
-			<span class="text-sm font-medium">Tu nombre</span>
+			<span class="text-sm font-medium">Name</span>
 			<input
 				type="text"
 				name="host_name"
 				required
-				placeholder="Martín"
+				placeholder="Your name"
 				class="rounded-lg border border-black/10 bg-transparent px-4 py-3 text-base outline-none focus:ring-2 focus:ring-verdict-si dark:border-white/10"
 			/>
 		</label>
 
 		<div class="grid grid-cols-2 gap-3">
 			<label class="flex flex-col gap-1">
-				<span class="text-sm font-medium">Fecha</span>
+				<span class="text-sm font-medium">Date</span>
 				<input
 					type="date"
 					name="date"
@@ -107,7 +104,7 @@
 				/>
 			</label>
 			<label class="flex flex-col gap-1">
-				<span class="text-sm font-medium">Hora</span>
+				<span class="text-sm font-medium">Time</span>
 				<input
 					type="time"
 					name="time"
@@ -119,7 +116,7 @@
 		</div>
 
 		<div class="flex flex-col gap-1">
-			<span class="text-sm font-medium">Ubicación</span>
+			<span class="text-sm font-medium">Location</span>
 			<button
 				type="button"
 				onclick={detectLocation}
@@ -127,11 +124,11 @@
 				class="rounded-lg border border-black/10 px-4 py-3 text-left text-base transition-colors hover:bg-black/5 disabled:opacity-50 dark:border-white/10 dark:hover:bg-white/5"
 			>
 				{#if locating}
-					Buscando...
+					Locating...
 				{:else if lat}
 					{locationLabel || `${lat}, ${lng}`}
 				{:else}
-					Usar mi ubicación
+					Use my location
 				{/if}
 			</button>
 			{#if locationError}
@@ -152,7 +149,7 @@
 			disabled={!lat || !lng || submitting}
 			class="mt-2 rounded-xl bg-verdict-si px-6 py-4 text-lg font-bold text-white transition-transform active:scale-95 disabled:opacity-50"
 		>
-			{submitting ? 'Consultando...' : 'Convocar'}
+			{submitting ? 'Checking...' : 'Go'}
 		</button>
 	</form>
 </div>

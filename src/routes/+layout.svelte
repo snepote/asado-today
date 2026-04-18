@@ -6,7 +6,7 @@
 
 <svelte:head>
 	<title>Asado Today</title>
-	<meta name="description" content="Decidí si hoy se hace asado" />
+	<meta name="description" content="Should we fire up the grill today?" />
 </svelte:head>
 
 <div class="min-h-screen">

@@ -7,8 +7,8 @@
 	let { data } = $props();
 
 	const verdictLabels: Record<Verdict, string> = {
-		SI: 'SÍ',
-		MAYBE: 'MMMMM',
+		SI: 'YES',
+		MAYBE: 'MAYBE',
 		NO: 'NO'
 	};
 
@@ -20,18 +20,18 @@
 
 	function formatDate(dateStr: string): string {
 		const d = new Date(dateStr + 'T00:00:00');
-		return d.toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' });
+		return d.toLocaleDateString('en-GB', { weekday: 'long', month: 'short', day: 'numeric' });
 	}
 </script>
 
 <svelte:head>
-	<title>Live — Asado de {data.event.hostName}</title>
+	<title>Live — {data.event.hostName}'s Asado</title>
 </svelte:head>
 
 <div class="flex min-h-screen flex-col items-center px-4 py-8">
 	<div class="w-full max-w-md">
 		<p class="text-center text-sm uppercase tracking-wide text-muted">
-			Asado de {data.event.hostName}
+			{data.event.hostName}'s Asado
 		</p>
 
 		<p
@@ -53,7 +53,7 @@
 		<div class="mt-8 flex flex-col items-center gap-2">
 			<Countdown targetDate={data.event.date} targetTime={data.event.time} />
 			<p class="text-sm text-muted">
-				{formatDate(data.event.date)} a las {data.event.time}
+				{formatDate(data.event.date)} at {data.event.time}
 				{#if data.event.locationLabel}
 					· {data.event.locationLabel}
 				{/if}
@@ -65,7 +65,7 @@
 				<AttendeeList guests={data.guests} />
 			</div>
 		{:else}
-			<p class="mt-8 text-center text-muted">Todavía no confirmó nadie</p>
+			<p class="mt-8 text-center text-muted">No RSVPs yet</p>
 		{/if}
 
 		<div class="mt-8 flex flex-col gap-3">
@@ -73,14 +73,14 @@
 				href="/e/{data.event.id}/rsvp"
 				class="inline-flex w-full items-center justify-center rounded-xl bg-verdict-si px-6 py-4 text-lg font-bold text-white transition-transform active:scale-95"
 			>
-				Responder
+				RSVP
 			</a>
 
 			<a
 				href="/e/{data.event.id}"
 				class="inline-flex w-full items-center justify-center rounded-xl border border-black/10 px-6 py-3 text-sm font-medium transition-colors hover:bg-black/5 dark:border-white/10 dark:hover:bg-white/5"
 			>
-				Ver detalles
+				Details
 			</a>
 		</div>
 	</div>

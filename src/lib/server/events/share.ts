@@ -18,8 +18,8 @@ export function buildWhatsAppUrl(
 	locationLabel: string | null,
 ): string {
 	const emoji = VERDICT_EMOJI[verdict];
-	const location = locationLabel ? ` en ${locationLabel}` : "";
+	const location = locationLabel ? ` at ${locationLabel}` : "";
 	const url = buildShareUrl(origin, eventId);
-	const text = `${emoji} Asado de ${hostName}${location} — ${verdict === "SI" ? "SE HACE" : verdict === "NO" ? "no se hace" : "vemos..."}\n${url}`;
+	const text = `${emoji} ${hostName}'s Asado${location} — ${verdict === "SI" ? "IT'S ON" : verdict === "NO" ? "not today" : "maybe..."}\n${url}`;
 	return `https://wa.me/?text=${encodeURIComponent(text)}`;
 }
