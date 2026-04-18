@@ -1,0 +1,21 @@
+{
+	"name": "asado-today",
+	"compatibility_date": "2026-04-19",
+	"compatibility_flags": ["nodejs_compat"],
+	"assets": {
+		"directory": ".svelte-kit/cloudflare"
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "asado-today-db",
+			"database_id": "local"
+		}
+	],
+	"kv_namespaces": [
+		{
+			"binding": "KV",
+			"id": "local"
+		}
+	]
+}
