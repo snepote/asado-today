@@ -15,5 +15,9 @@ A blazing fast, mobile-first responsive web app to decide whether it is a good d
 The complete specification is in specs/.
 Begin by reading the [00_start.md](specs/00_start.md).
 
+## Definition of done — E2E tests are mandatory
+
+**NEVER consider a change "done" unless `pnpm test:e2e` passes with zero failures.** This is a hard gate, not a suggestion. If E2E tests fail, the task is not complete — diagnose and fix the failure before reporting success. Do not skip, disable, or mark tests as `.skip` to work around failures.
+
 ## Code quality
 @CODE_QUALITY.md

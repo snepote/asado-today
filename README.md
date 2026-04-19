@@ -70,6 +70,7 @@ Individual commands:
 | `pnpm lint:svelte` | ESLint on `.svelte` files |
 | `pnpm typecheck` | svelte-check + tsc |
 | `pnpm test:unit` | Vitest unit tests |
+| `pnpm test:e2e` | Playwright E2E tests (starts wrangler dev automatically) |
 | `pnpm build` | Production build |
 
 ## License
