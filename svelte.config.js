@@ -9,12 +9,7 @@ const config = {
 		handler(warning);
 	},
 	kit: {
-		adapter: adapter({
-			routes: {
-				include: ['/*'],
-				exclude: ['<all>']
-			}
-		})
+		adapter: adapter()
 	}
 };
 

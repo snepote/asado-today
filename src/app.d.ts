@@ -4,9 +4,7 @@
 declare global {
 	namespace App {
 		interface Platform {
-			env: {
-				KV: KVNamespace;
-			};
+			env: {};
 			context: ExecutionContext;
 			caches: CacheStorage & { default: Cache };
 		}
