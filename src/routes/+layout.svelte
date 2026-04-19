@@ -4,11 +4,4 @@
 	let { children } = $props();
 </script>
 
-<svelte:head>
-	<title>Asado Today</title>
-	<meta name="description" content="Should we fire up the grill today?" />
-</svelte:head>
-
-<div class="min-h-screen">
-	{@render children()}
-</div>
+{@render children()}

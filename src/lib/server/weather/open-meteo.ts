@@ -8,6 +8,7 @@ export async function fetchForecast(lat: number, lng: number): Promise<ForecastD
 		longitude: lng.toString(),
 		hourly: [
 			"temperature_2m",
+			"apparent_temperature",
 			"precipitation_probability",
 			"cloudcover",
 			"relative_humidity_2m",
@@ -18,7 +19,7 @@ export async function fetchForecast(lat: number, lng: number): Promise<ForecastD
 		].join(","),
 		daily: "sunset",
 		timezone: "auto",
-		forecast_days: "2",
+		forecast_days: "7",
 	});
 
 	const response = await fetch(`${BASE_URL}?${params}`);
@@ -35,6 +36,7 @@ function parseForecastResponse(data: OpenMeteoResponse): ForecastData {
 	const hourly: HourlyForecast[] = data.hourly.time.map((time, i) => ({
 		time,
 		temperature: data.hourly.temperature_2m[i],
+		feelsLike: data.hourly.apparent_temperature[i],
 		precipitationProbability: data.hourly.precipitation_probability[i],
 		cloudCover: data.hourly.cloudcover[i],
 		humidity: data.hourly.relative_humidity_2m[i],

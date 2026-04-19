@@ -1,24 +1,31 @@
-import { json } from "@sveltejs/kit";
-import { getVerdict } from "$lib/server/weather";
+import { error, json } from "@sveltejs/kit";
+import { fetchForecast } from "$lib/server/weather/open-meteo";
+import { computeVerdict } from "$lib/server/weather/verdict";
 import type { RequestHandler } from "./$types";
 
-export const POST: RequestHandler = async ({ request, platform }) => {
-	const kv = platform?.env?.KV;
-	if (!kv) {
-		return json({ error: "Service unavailable" }, { status: 500 });
+export const GET: RequestHandler = async ({ url }) => {
+	const lat = url.searchParams.get("lat");
+	const lng = url.searchParams.get("lng");
+	const date = url.searchParams.get("date");
+	const hour = url.searchParams.get("hour");
+
+	if (!lat || !lng) {
+		error(400, "lat and lng are required");
 	}
 
-	const body = (await request.json()) as {
-		lat?: number;
-		lng?: number;
-		date?: string;
-		time?: string;
-	};
+	const latitude = Number.parseFloat(lat);
+	const longitude = Number.parseFloat(lng);
 
-	if (!body.lat || !body.lng || !body.date || !body.time) {
-		return json({ error: "Missing required fields: lat, lng, date, time" }, { status: 400 });
+	if (Number.isNaN(latitude) || Number.isNaN(longitude)) {
+		error(400, "Invalid coordinates");
 	}
 
-	const result = await getVerdict(body.lat, body.lng, body.date, body.time, kv);
+	const now = new Date();
+	const targetDate = date ?? now.toISOString().split("T")[0];
+	const targetHour = hour ? Number.parseInt(hour, 10) : now.getHours();
+
+	const forecast = await fetchForecast(latitude, longitude);
+	const result = computeVerdict(forecast, targetDate, targetHour);
+
 	return json(result);
 };

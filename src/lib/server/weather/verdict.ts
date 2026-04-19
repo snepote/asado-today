@@ -1,5 +1,5 @@
 import type { Verdict, VerdictResult } from "$lib/types";
-import type { ForecastData, HourlyForecast } from "./types";
+import type { ForecastData } from "./types";
 
 const WEIGHTS = {
 	precipitation: 0.3,
@@ -50,12 +50,10 @@ function scoreUvIndex(uv: number): number {
 	return 50;
 }
 
-function scoreGoldenHour(eventTime: string, _eventDate: string, sunset: string): number {
-	const eventHour = Number.parseInt(eventTime.split(":")[0], 10);
+function scoreGoldenHour(hour: number, sunset: string): number {
 	const sunsetStr = sunset.includes("T") ? sunset.split("T")[1] : sunset;
 	const sunsetHour = Number.parseInt(sunsetStr.split(":")[0], 10);
-
-	const hoursBeforeSunset = sunsetHour - eventHour;
+	const hoursBeforeSunset = sunsetHour - hour;
 
 	if (hoursBeforeSunset >= 3) return 100;
 	if (hoursBeforeSunset >= 1) return 70;
@@ -63,40 +61,29 @@ function scoreGoldenHour(eventTime: string, _eventDate: string, sunset: string):
 	return 40;
 }
 
-function findClosestHour(forecast: ForecastData, date: string, time: string): HourlyForecast {
-	const targetPrefix = `${date}T${time}`;
-	const targetHour = `${date}T${time.split(":")[0]}:00`;
+export function computeVerdict(forecast: ForecastData, date: string, hour: number): VerdictResult {
+	const targetHour = `${date}T${String(hour).padStart(2, "0")}:00`;
 
-	const match = forecast.hourly.find((h) => h.time === targetPrefix || h.time === targetHour);
+	const hourData =
+		forecast.hourly.find((h) => h.time === targetHour) ??
+		forecast.hourly.reduce((closest, h) => {
+			const diff = Math.abs(new Date(h.time).getTime() - new Date(targetHour).getTime());
+			const closestDiff = Math.abs(
+				new Date(closest.time).getTime() - new Date(targetHour).getTime(),
+			);
+			return diff < closestDiff ? h : closest;
+		});
 
-	if (match) return match;
-
-	const targetDate = new Date(`${date}T${time}`);
-	let closest = forecast.hourly[0];
-	let minDiff = Number.POSITIVE_INFINITY;
-
-	for (const h of forecast.hourly) {
-		const diff = Math.abs(new Date(h.time).getTime() - targetDate.getTime());
-		if (diff < minDiff) {
-			minDiff = diff;
-			closest = h;
-		}
-	}
-
-	return closest;
-}
-
-export function computeVerdict(forecast: ForecastData, date: string, time: string): VerdictResult {
-	const hour = findClosestHour(forecast, date, time);
+	const sunset = forecast.sunset;
 
 	const breakdown = {
-		precipitation: scorePrecipitation(hour.precipitationProbability),
-		temperature: scoreTemperature(hour.temperature),
-		wind: scoreWind(hour.windSpeed),
-		humidity: scoreHumidity(hour.humidity),
-		cloudCover: scoreCloudCover(hour.cloudCover),
-		goldenHour: scoreGoldenHour(time, date, forecast.sunset),
-		uvIndex: scoreUvIndex(hour.uvIndex),
+		precipitation: scorePrecipitation(hourData.precipitationProbability),
+		temperature: scoreTemperature(hourData.temperature),
+		wind: scoreWind(hourData.windSpeed),
+		humidity: scoreHumidity(hourData.humidity),
+		cloudCover: scoreCloudCover(hourData.cloudCover),
+		goldenHour: scoreGoldenHour(hour, sunset),
+		uvIndex: scoreUvIndex(hourData.uvIndex),
 	};
 
 	const score = Math.round(
@@ -118,5 +105,20 @@ export function computeVerdict(forecast: ForecastData, date: string, time: strin
 		verdict = "NO";
 	}
 
-	return { verdict, score, breakdown };
+	return {
+		verdict,
+		score,
+		weather: {
+			temperature: hourData.temperature,
+			feelsLike: hourData.feelsLike,
+			precipitationProbability: hourData.precipitationProbability,
+			windSpeed: hourData.windSpeed,
+			windDirection: hourData.windDirection,
+			humidity: hourData.humidity,
+			cloudCover: hourData.cloudCover,
+			uvIndex: hourData.uvIndex,
+			weatherCode: hourData.weatherCode,
+		},
+		sunset: sunset.includes("T") ? sunset.split("T")[1].substring(0, 5) : sunset,
+	};
 }

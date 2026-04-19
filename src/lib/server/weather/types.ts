@@ -1,6 +1,7 @@
 export interface OpenMeteoHourly {
 	time: string[];
 	temperature_2m: number[];
+	apparent_temperature: number[];
 	precipitation_probability: number[];
 	cloudcover: number[];
 	relative_humidity_2m: number[];
@@ -26,6 +27,7 @@ export interface OpenMeteoResponse {
 export interface HourlyForecast {
 	time: string;
 	temperature: number;
+	feelsLike: number;
 	precipitationProbability: number;
 	cloudCover: number;
 	humidity: number;

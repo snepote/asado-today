@@ -1,6 +1,6 @@
 # Asado today
 
-A blazing fast, mobile-first responsive web app to help a group of people deciding if they should make a BBQ on a given day.
+A blazing fast, mobile-first responsive web app to decide whether it is a good day to make a BBQ.
 
 ### Recommendation factors
 - Weather core — temp, precipitation probability, cloud cover, humidity, UV
@@ -13,6 +13,7 @@ A blazing fast, mobile-first responsive web app to help a group of people decidi
 
 ## Specs
 The complete specification is in specs/.
+Begin by reading the [00_start.md](specs/00_start.md).
 
 ## Code quality
 @CODE_QUALITY.md
