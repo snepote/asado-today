@@ -56,7 +56,7 @@
 	});
 </script>
 
-<div class="absolute inset-0 flex flex-col bg-cream pt-[52px]">
+<div class="flex flex-col h-full pt-4">
 	<!-- Back + Live -->
 	<div class="flex items-center justify-between px-5">
 		<button
@@ -161,7 +161,7 @@
 	<div class="flex-1"></div>
 
 	<!-- Bottom link -->
-	<div class="text-center pb-10">
+	<div class="text-center pb-6">
 		<button
 			onclick={onsettings}
 			class="font-sans text-sm text-ink-soft border-b border-dashed border-ink/35 pb-0.5 cursor-pointer

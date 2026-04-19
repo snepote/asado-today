@@ -21,10 +21,18 @@
 }
 
 @layer base {
-	body {
+	html, body {
 		margin: 0;
+		overflow: hidden;
+		height: 100dvh;
 		font-family: var(--font-sans);
 		-webkit-font-smoothing: antialiased;
+	}
+}
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
 	}
 }
 

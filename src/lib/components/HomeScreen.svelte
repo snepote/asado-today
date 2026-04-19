@@ -27,7 +27,7 @@
 	const ringSize = buttonSize + 22;
 </script>
 
-<div class="absolute inset-0 flex flex-col bg-cream pt-[52px]">
+<div class="flex flex-col h-full pt-4">
 	<!-- Top strip -->
 	<div class="flex items-center justify-between px-[22px] mt-1">
 		<span class="font-mono text-[10.5px] tracking-[0.22em] uppercase text-ink-mute">
@@ -108,7 +108,7 @@
 	<div class="flex-1"></div>
 
 	<!-- Bottom link -->
-	<div class="text-center pb-[42px]">
+	<div class="text-center pb-6">
 		<button
 			onclick={onsettings}
 			class="font-sans text-sm text-ink-soft border-b border-dashed border-ink/35 pb-0.5 cursor-pointer
