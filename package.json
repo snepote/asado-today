@@ -1,0 +1,54 @@
+{
+  "name": "asado-today",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "biome check src/",
+    "lint:fix": "biome check --write src/",
+    "lint:svelte": "eslint 'src/**/*.svelte'",
+    "typecheck": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "deadcode": "knip",
+    "cycles": "madge --circular --extensions ts,js,svelte src/",
+    "sec:secrets": "gitleaks detect --no-banner --no-color",
+    "sec:deps": "osv-scanner scan --lockfile pnpm-lock.yaml",
+    "sec:sast": "semgrep scan --config auto src/",
+    "test:unit": "vitest run",
+    "test:e2e": "playwright test",
+    "agent:check": "pnpm lint && pnpm lint:svelte && pnpm typecheck && pnpm test:unit && pnpm build",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.12",
+    "@cloudflare/workers-types": "^4.20260418.1",
+    "@playwright/test": "^1.59.1",
+    "@sveltejs/adapter-cloudflare": "^7.2.8",
+    "@sveltejs/kit": "^2.20.8",
+    "@sveltejs/vite-plugin-svelte": "^5.1.1",
+    "@tailwindcss/vite": "^4.0.17",
+    "@typescript-eslint/parser": "^8.58.2",
+    "@vitest/coverage-v8": "^2.1.9",
+    "eslint": "^10.2.1",
+    "eslint-plugin-svelte": "^3.17.0",
+    "knip": "^6.4.1",
+    "madge": "^8.0.0",
+    "svelte": "^5.55.4",
+    "svelte-check": "^4.4.6",
+    "tailwindcss": "^4.0.17",
+    "typescript": "^6.0.3",
+    "vite": "^6.4.2",
+    "vitest": "^2.1.9"
+  },
+  "dependencies": {
+    "wrangler": "^4.83.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "workerd"
+    ]
+  }
+}
