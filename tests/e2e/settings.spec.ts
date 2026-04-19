@@ -9,6 +9,7 @@ test.beforeEach(async ({ context, page }) => {
 
 async function goToSettings(page: import('@playwright/test').Page) {
 	await page.goto('/');
+	await expect(page.getByText('BUENOS AIRES')).toBeVisible();
 	await page.getByText('Another day or place?').click();
 }
 
