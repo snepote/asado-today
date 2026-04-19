@@ -6,11 +6,5 @@
 	"assets": {
 		"directory": ".svelte-kit/cloudflare",
 		"binding": "ASSETS"
-	},
-	"kv_namespaces": [
-		{
-			"binding": "KV",
-			"id": "local"
-		}
-	]
+	}
 }
