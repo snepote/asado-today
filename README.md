@@ -1,5 +1,7 @@
 # Asado Today
 
+[![CI](https://github.com/snepote/asado-today/actions/workflows/ci.yml/badge.svg)](https://github.com/snepote/asado-today/actions/workflows/ci.yml)
+
 A mobile-first web app to help a group of people decide if they should make a BBQ on a given day, based on weather intelligence.
 
 ## Tech stack
