@@ -18,7 +18,7 @@
 	} = $props();
 
 	let step = $state(0);
-	let localCity = $state(city);
+	let localCity = $derived(city);
 
 	const cities = ['Palermo', 'Buenos Aires', 'Montevideo', 'Barcelona', 'Milan', 'Lisbon'];
 
