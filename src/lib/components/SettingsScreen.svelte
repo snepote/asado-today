@@ -71,7 +71,7 @@
 	const temps = ['22°', '19°', '24°', '20°', '17°', '21°', '23°'];
 </script>
 
-<div class="absolute inset-0 flex flex-col bg-cream pt-[52px]">
+<div class="flex flex-col h-full pt-4">
 	<!-- Header -->
 	<div class="flex items-center justify-between px-[22px]">
 		<button onclick={goBack} aria-label="Go back" class="bg-transparent border-none p-0 cursor-pointer">
@@ -96,15 +96,15 @@
 	</div>
 
 	<!-- Title -->
-	<div class="font-display italic text-center px-7 pt-10 text-[40px] leading-[1.05] text-ink">
+	<div class="font-display italic text-center px-7 pt-6 text-[32px] leading-[1.05] text-ink">
 		{step === 0 ? 'Where are you?' : 'Which day?'}
 	</div>
-	<div class="font-sans text-center px-10 pt-2.5 text-sm text-ink-soft">
+	<div class="font-sans text-center px-10 pt-1.5 text-sm text-ink-soft">
 		{step === 0 ? "We'll fetch the local forecast." : 'Pick any day in the next week.'}
 	</div>
 
 	<!-- Step content -->
-	<div class="flex-1 px-[22px] pt-8 overflow-auto">
+	<div class="flex-1 px-[22px] pt-4 min-h-0 overflow-hidden">
 		{#if step === 0}
 			<!-- Auto-detect card -->
 			<div class="bg-white rounded-2xl p-[14px_16px] flex items-center gap-3 mb-3">
@@ -147,20 +147,20 @@
 			</div>
 		{:else}
 			<!-- Day picker -->
-			<div class="flex flex-col gap-2">
+			<div class="flex flex-col gap-1.5">
 				{#each days as d, i (d.toDateString())}
 					{@const selected = dateStr === d.toDateString()}
 					{@const kind = dayIcon(i)}
 					<button
 						onclick={() => onupdatedate(d.toDateString())}
-						class="flex items-center gap-3.5 p-[14px_16px] rounded-2xl border-none cursor-pointer text-left transition-all duration-150"
+						class="flex items-center gap-3.5 p-[10px_14px] rounded-2xl border-none cursor-pointer text-left transition-all duration-150"
 						style="background: {selected ? 'var(--color-ink)' : '#fff'}; color: {selected ? 'var(--color-cream)' : 'var(--color-ink)'};"
 					>
 						<div
-							class="w-[38px] h-[38px] rounded-full flex items-center justify-center shrink-0"
+							class="w-[30px] h-[30px] rounded-full flex items-center justify-center shrink-0"
 							style="background: {selected ? 'rgba(255,255,255,0.08)' : 'rgba(43,29,20,0.05)'};"
 						>
-							<WeatherIcon {kind} size={22} color={selected ? 'var(--color-cream)' : dayIconColor(i)} />
+							<WeatherIcon {kind} size={18} color={selected ? 'var(--color-cream)' : dayIconColor(i)} />
 						</div>
 						<div class="flex-1">
 							<div class="font-sans text-base font-medium">{dayLabel(d, i)}</div>
@@ -184,7 +184,7 @@
 	</div>
 
 	<!-- Next / Done button -->
-	<div class="px-[22px] pb-9 pt-4">
+	<div class="px-[22px] pb-6 pt-4">
 		<button
 			onclick={next}
 			class="w-full py-4 rounded-full border-none bg-ink text-cream text-[15px] font-medium
