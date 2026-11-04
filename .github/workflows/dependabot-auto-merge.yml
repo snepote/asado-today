@@ -1,0 +1,30 @@
+name: Dependabot auto-merge
+
+# Enables GitHub's native auto-merge on Dependabot PRs. The PR is merged by
+# GitHub only after every required status check on `main` passes (Lint,
+# Typecheck, Unit Tests, Build, E2E Tests). If a check fails, the PR stays open.
+#
+# Requires (repo settings, admin only):
+#   - Settings > General > "Allow auto-merge" enabled
+#   - A branch protection rule / ruleset on `main` with required status checks
+
+on: pull_request
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    name: Enable auto-merge
+    runs-on: ubuntu-latest
+    # Only Dependabot PRs opened from this repository (never forks or humans).
+    if: >-
+      github.event.pull_request.user.login == 'dependabot[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - name: Enable auto-merge (squash)
+        run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,11 +1,28 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
-# Please see the documentation for all configuration options:
-# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+# Dependabot configuration.
+# Docs: https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+#
+# Dependency PRs opened by Dependabot are auto-merged by
+# .github/workflows/dependabot-auto-merge.yml once all required CI checks pass.
 
 version: 2
 updates:
-  - package-ecosystem: "" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  # pnpm projects use the "npm" ecosystem (Dependabot reads pnpm-lock.yaml).
+  - package-ecosystem: "npm"
+    directory: "/"
     schedule:
       interval: "weekly"
+    # Rebase open PRs automatically when they conflict with main
+    # (e.g. after another dependency PR touching pnpm-lock.yaml is merged).
+    rebase-strategy: "auto"
+    labels:
+      - "dependencies"
+      - "javascript"
+
+  # Keep the GitHub Actions used in CI up to date too.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "github-actions"
