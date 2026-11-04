@@ -16,7 +16,7 @@ permissions:
 jobs:
   lint:
     name: Lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -32,7 +32,7 @@ jobs:
 
   typecheck:
     name: Typecheck
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -47,7 +47,7 @@ jobs:
 
   test-unit:
     name: Unit Tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -62,7 +62,7 @@ jobs:
 
   build:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: [lint, typecheck, test-unit]
     steps:
       - uses: actions/checkout@v4
@@ -78,7 +78,7 @@ jobs:
 
   test-e2e:
     name: E2E Tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: [build]
     steps:
       - uses: actions/checkout@v4
