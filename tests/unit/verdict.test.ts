@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { computeVerdict } from "$lib/server/weather/verdict";
-import type { ForecastData } from "$lib/server/weather/types";
+import { computeVerdict } from "#lib/server/weather/verdict.js";
+import type { ForecastData } from "#lib/server/weather/types.js";
 
 function makeForecast(
 	overrides: Partial<{

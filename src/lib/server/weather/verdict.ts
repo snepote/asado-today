@@ -1,4 +1,4 @@
-import type { Verdict, VerdictResult } from "$lib/types";
+import type { Verdict, VerdictResult } from "#lib/types.js";
 import type { ForecastData } from "./types";
 
 const WEIGHTS = {

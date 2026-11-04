@@ -1,6 +1,6 @@
 import { error, json } from "@sveltejs/kit";
-import { fetchForecast } from "$lib/server/weather/open-meteo";
-import { computeVerdict } from "$lib/server/weather/verdict";
+import { fetchForecast } from "#lib/server/weather/open-meteo.js";
+import { computeVerdict } from "#lib/server/weather/verdict.js";
 import type { RequestHandler } from "./$types";
 
 export const GET: RequestHandler = async ({ url }) => {

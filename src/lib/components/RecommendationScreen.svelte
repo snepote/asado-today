@@ -1,7 +1,7 @@
 <script lang="ts">
 	import WeatherIcon from './WeatherIcon.svelte';
 	import StatBox from './StatBox.svelte';
-	import type { VerdictResult } from '$lib/types';
+	import type { VerdictResult } from '#lib/types.js';
 
 	let {
 		result,
