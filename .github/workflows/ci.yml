@@ -94,7 +94,7 @@ jobs:
         id: playwright-version
         run: echo "PLAYWRIGHT_VERSION=$(pnpm exec playwright --version | tr -d ' ')" >> $GITHUB_OUTPUT
       - name: Cache Playwright browsers
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         id: playwright-cache
         with:
           path: ~/.cache/ms-playwright
@@ -105,7 +105,7 @@ jobs:
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: pnpm exec playwright install chromium
       - run: pnpm test:e2e --project=chromium
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
           name: playwright-report

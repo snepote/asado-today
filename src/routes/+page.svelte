@@ -1,8 +1,8 @@
 <script lang="ts">
-	import HomeScreen from '$lib/components/HomeScreen.svelte';
-	import RecommendationScreen from '$lib/components/RecommendationScreen.svelte';
-	import SettingsScreen from '$lib/components/SettingsScreen.svelte';
-	import type { VerdictResult } from '$lib/types';
+	import HomeScreen from '#lib/components/HomeScreen.svelte';
+	import RecommendationScreen from '#lib/components/RecommendationScreen.svelte';
+	import SettingsScreen from '#lib/components/SettingsScreen.svelte';
+	import type { VerdictResult } from '#lib/types.js';
 
 	type Screen = 'home' | 'recommendation' | 'settings';
 
