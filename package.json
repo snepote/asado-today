@@ -32,7 +32,7 @@
     "@sveltejs/adapter-cloudflare": "^8.0.2",
     "@sveltejs/kit": "^3.1.1",
     "@sveltejs/vite-plugin-svelte": "^7.3.1",
-    "@tailwindcss/vite": "^4.3.4",
+    "@tailwindcss/vite": "^4.3.5",
     "@typescript-eslint/parser": "^8.72.2",
     "@vitest/coverage-v8": "^4.1.12",
     "eslint": "^10.15.0",
